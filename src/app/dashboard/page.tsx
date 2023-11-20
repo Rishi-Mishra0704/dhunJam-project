@@ -121,15 +121,16 @@ const Dashboard: React.FC = () => {
       <h1>
         {adminDetails?.name}, {adminDetails?.location} on Dhun Jam
       </h1>
-      <div>
+      <div className={styles.radioContainer}>
         <label>Do you want to charge your customers for requesting songs?</label>
-        <div>
+        <div className={styles.radioButton}>
           <label>
             <input
               type="radio"
               value="yes"
               checked={chargeCustomers}
               onChange={() => handleChargeCustomersChange(true)}
+              className={styles.radio}
             />
             Yes
           </label>
@@ -139,12 +140,13 @@ const Dashboard: React.FC = () => {
               value="no"
               checked={!chargeCustomers}
               onChange={() => handleChargeCustomersChange(false)}
+              className={styles.radio}
             />
             No
           </label>
         </div>
       </div>
-      <div>
+      <div className={styles.customSong}>
         <label>Custom song request amount:</label>
         <input
           type="number"
@@ -153,7 +155,7 @@ const Dashboard: React.FC = () => {
           disabled={!chargeCustomers}
         />
       </div>
-      <div>
+      <div className={styles.categorySong}>
         <label>Regular song request amounts, from high to low:</label>
         <input
           type="number"
@@ -180,7 +182,7 @@ const Dashboard: React.FC = () => {
           disabled={!chargeCustomers}
         />
       </div>
-      <button onClick={handleSaveButtonClick} disabled={saveButtonDisabled}>
+      <button className={styles.save} onClick={handleSaveButtonClick} disabled={saveButtonDisabled}>
         Save
       </button>
     </div>
