@@ -42,6 +42,7 @@ const Dashboard: React.FC = () => {
       <h1>
         {adminDetails?.name}, {adminDetails?.location} on Dhun Jam
       </h1>
+      <div className={styles.form}>
       <div className={styles.radioContainer}>
         <label>
           Do you want to charge your customers for requesting songs?
@@ -129,6 +130,7 @@ const Dashboard: React.FC = () => {
           }
           disabled={!chargeCustomers}
         />
+      </div>
       </div>
       {/*Chart to be rendered */}
       <div className={styles.chartContainer}>
