@@ -43,3 +43,11 @@
   color: #fff;
   font-size: 16px;
 }
+@media only screen and (max-width: 768px) {
+    .input {
+      width: 300px; /* Adjusted width for smaller screens */
+    }
+    .signin {
+        width: 300px;
+    }
+  }
