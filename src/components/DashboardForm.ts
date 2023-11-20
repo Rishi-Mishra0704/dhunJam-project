@@ -148,41 +148,46 @@ const useDashboardForm = ({ fetchData, updateData }: DashboardFormProps) => {
   useEffect(() => {
     checkSaveButtonStatus();
   }, [chargeCustomers, category6Value, category7Value, category8Value, category9Value, category10Value]);
-
+  
   const handleChargeCustomersChange = (value: boolean) => {
     setChargeCustomers(value);
-    setSaveButtonDisabled(false);
+    setSaveButtonDisabled(!value || !isValidCategoryValues());
   };
-
+  
   const handleCategoryValueChange = (category: string, value: number) => {
     const categoryStateKey = `set${category
       .replace("_", "")
       .replace(/^\w/, (c) => c.toUpperCase())}Value`;
     const categoryStateSetter = eval(categoryStateKey);
     categoryStateSetter(value);
+    setSaveButtonDisabled(!chargeCustomers || !isValidCategoryValues());
   };
-
+  
   const checkSaveButtonStatus = () => {
-    const isSaveButtonDisabled =
-      !chargeCustomers ||
-      isNaN(category6Value) ||
-      category6Value < MINIMUM_VALUES.category_6 ||
-      isNaN(category7Value) ||
-      category7Value < MINIMUM_VALUES.category_7 ||
-      isNaN(category8Value) ||
-      category8Value < MINIMUM_VALUES.category_8 ||
-      isNaN(category9Value) ||
-      category9Value < MINIMUM_VALUES.category_9 ||
-      isNaN(category10Value) ||
-      category10Value < MINIMUM_VALUES.category_10;
-
-      console.log(category6Value, category7Value, category8Value, category9Value, category10Value);
-      
-
-    setSaveButtonDisabled(isSaveButtonDisabled);
+    setSaveButtonDisabled(!chargeCustomers || !isValidCategoryValues());
   };
-
+  
+  const isValidCategoryValues = () => {
+    return (
+      isValidCategoryValue(category6Value, MINIMUM_VALUES.category_6) &&
+      isValidCategoryValue(category7Value, MINIMUM_VALUES.category_7) &&
+      isValidCategoryValue(category8Value, MINIMUM_VALUES.category_8) &&
+      isValidCategoryValue(category9Value, MINIMUM_VALUES.category_9) &&
+      isValidCategoryValue(category10Value, MINIMUM_VALUES.category_10)
+    );
+  };
+  
+  const isValidCategoryValue = (value: number, minValue: number) => {
+    return !isNaN(value) && value >= minValue;
+  };
+  
   const handleSaveButtonClick = async () => {
+    const isValid = isValidCategoryValues();
+    if (!isValid) {
+      console.error("Invalid data. Please check the values.");
+      return;
+    }
+  
     const response = await updateData({
       charge_customers: chargeCustomers,
       amount: {
@@ -193,14 +198,14 @@ const useDashboardForm = ({ fetchData, updateData }: DashboardFormProps) => {
         category_10: category10Value,
       },
     });
-
+  
     if (response.status === 200) {
       console.log("Update successful");
-      setSaveButtonDisabled(false);
     } else {
       console.error(`Error: ${response.response}`);
     }
   };
+  
 
 
   return {
