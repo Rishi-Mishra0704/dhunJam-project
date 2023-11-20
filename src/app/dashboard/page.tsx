@@ -1,7 +1,7 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./dashboard.module.css";
-
+import Chart from "chart.js/auto";
 
 interface AdminDetails {
   id: number;
@@ -26,7 +26,7 @@ const Dashboard: React.FC = () => {
   const [category9Value, setCategory9Value] = useState<number>(0);
   const [category10Value, setCategory10Value] = useState<number>(0);
   const [saveButtonDisabled, setSaveButtonDisabled] = useState<boolean>(true);
-
+  const chartRef = useRef<HTMLCanvasElement | null>(null);
   useEffect(() => {
     const fetchAdminDetails = async () => {
       try {
@@ -53,6 +53,85 @@ const Dashboard: React.FC = () => {
 
     fetchAdminDetails();
   }, []);
+
+  useEffect(() => {
+    const updateChart = () => {
+      if (chartRef.current) {
+        const ctx = chartRef.current.getContext("2d");
+        if (ctx) {
+          // Destroy the existing chart
+          Chart.getChart(chartRef.current)?.destroy();
+
+          const data = {
+            labels: [
+              "category_6",
+              "category_7",
+              "category_8",
+              "category_9",
+              "category_10",
+            ],
+            datasets: [
+              {
+                label: "Amount",
+                backgroundColor: "#F0C3F1",
+                borderColor: "#FFFFFF",
+                borderWidth: 1,
+                data: [
+                  category6Value,
+                  category7Value,
+                  category8Value,
+                  category9Value,
+                  category10Value,
+                ],
+              },
+            ],
+          };
+
+          const options = {
+            scales: {
+              y: {
+                beginAtZero: true,
+                title: {
+                  display: true,
+                  text: "₹",
+                  color: "#FFFFFF",
+                  size: 20,
+                },
+                ticks: {
+                  display: false,
+                },
+              },
+              x: {
+                ticks: {
+                  color: "#FFFFFF",
+                },
+              },
+            },
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            maintainAspectRatio: false,
+          };
+
+          new Chart(ctx, {
+            type: "bar",
+            data: data,
+            options: options,
+          });
+        }
+      }
+    };
+
+    updateChart();
+  }, [
+    category6Value,
+    category7Value,
+    category8Value,
+    category9Value,
+    category10Value,
+  ]);
 
   const handleChargeCustomersChange = (value: boolean) => {
     setChargeCustomers(value);
@@ -84,8 +163,7 @@ const Dashboard: React.FC = () => {
   };
 
   const checkSaveButtonStatus = (chargeCustomers: boolean) => {
-    const isSaveButtonDisabled =
-      !chargeCustomers;
+    const isSaveButtonDisabled = !chargeCustomers;
     setSaveButtonDisabled(isSaveButtonDisabled);
   };
 
@@ -122,7 +200,9 @@ const Dashboard: React.FC = () => {
         {adminDetails?.name}, {adminDetails?.location} on Dhun Jam
       </h1>
       <div className={styles.radioContainer}>
-        <label>Do you want to charge your customers for requesting songs?</label>
+        <label>
+          Do you want to charge your customers for requesting songs?
+        </label>
         <div className={styles.radioButton}>
           <label>
             <input
@@ -151,7 +231,12 @@ const Dashboard: React.FC = () => {
         <input
           type="number"
           value={category6Value}
-          onChange={(e) => handleCategoryValueChange("category_6", parseInt(e.target.value, 10))}
+          onChange={(e) =>
+            handleCategoryValueChange(
+              "category_6",
+              parseInt(e.target.value, 10)
+            )
+          }
           disabled={!chargeCustomers}
         />
       </div>
@@ -160,29 +245,57 @@ const Dashboard: React.FC = () => {
         <input
           type="number"
           value={category7Value}
-          onChange={(e) => handleCategoryValueChange("category_7", parseInt(e.target.value, 10))}
+          onChange={(e) =>
+            handleCategoryValueChange(
+              "category_7",
+              parseInt(e.target.value, 10)
+            )
+          }
           disabled={!chargeCustomers}
         />
         <input
           type="number"
           value={category8Value}
-          onChange={(e) => handleCategoryValueChange("category_8", parseInt(e.target.value, 10))}
+          onChange={(e) =>
+            handleCategoryValueChange(
+              "category_8",
+              parseInt(e.target.value, 10)
+            )
+          }
           disabled={!chargeCustomers}
         />
         <input
           type="number"
           value={category9Value}
-          onChange={(e) => handleCategoryValueChange("category_9", parseInt(e.target.value, 10))}
+          onChange={(e) =>
+            handleCategoryValueChange(
+              "category_9",
+              parseInt(e.target.value, 10)
+            )
+          }
           disabled={!chargeCustomers}
         />
         <input
           type="number"
           value={category10Value}
-          onChange={(e) => handleCategoryValueChange("category_10", parseInt(e.target.value, 10))}
+          onChange={(e) =>
+            handleCategoryValueChange(
+              "category_10",
+              parseInt(e.target.value, 10)
+            )
+          }
           disabled={!chargeCustomers}
         />
       </div>
-      <button className={styles.save} onClick={handleSaveButtonClick} disabled={saveButtonDisabled}>
+      {/*Chart to be rendered */}
+      <div className={styles.chartContainer}>
+        <canvas ref={chartRef} width="600" height="400"></canvas>
+      </div>
+      <button
+        className={styles.save}
+        onClick={handleSaveButtonClick}
+        disabled={saveButtonDisabled}
+      >
         Save
       </button>
     </div>
