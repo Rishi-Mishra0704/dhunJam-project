@@ -1,7 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { adminLogin } from "./api"; // adjust the path as needed
+import { adminLogin } from "./api";
+import styles from "./login.module.css";
+import Link from "next/link";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState("");
@@ -12,34 +14,43 @@ const Login: React.FC = () => {
     try {
       const response = await adminLogin(username, password);
       console.log(response);
-      router.push('/dashboard', { scroll: false })
+      router.push("/dashboard", { scroll: false });
     } catch (error: any) {
       console.error(error.message);
     }
   };
 
   return (
-    <div>
-      <h1>Venue Admin Login</h1>
+    <div className={styles.container}>
+      <h1 className={styles.title}>Venue Admin Login</h1>
       <div>
-        <label htmlFor="username">Username:</label>
+        <label htmlFor="username"></label>
         <input
+          className={styles.input}
           type="text"
           id="username"
           value={username}
+          placeholder="Username"
           onChange={(e) => setUsername(e.target.value)}
         />
       </div>
       <div>
-        <label htmlFor="password">Password:</label>
+        <label htmlFor="password"></label>
         <input
+          className={styles.input}
           type="password"
           id="password"
           value={password}
+          placeholder="Password"
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-      <button onClick={handleLogin}>Sign In</button>
+      <button className={styles.signin} onClick={handleLogin}>
+        Sign In
+      </button>
+      <Link href="/" className={styles["new-link"]}>
+        New Registration?
+      </Link>
     </div>
   );
 };
