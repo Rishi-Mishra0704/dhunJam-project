@@ -2,7 +2,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import styles from "./dashboard.module.css";
 import Chart from "chart.js/auto";
-
+import useDashboardForm from "@/components/DashboardForm";
+import { fetchDashboardData, updateDashboardData } from "@/components/DashBoardService";
 interface AdminDetails {
   id: number;
   name: string;
@@ -18,181 +19,23 @@ interface AdminDetails {
 }
 
 const Dashboard: React.FC = () => {
-  const [adminDetails, setAdminDetails] = useState<AdminDetails | null>(null);
-  const [chargeCustomers, setChargeCustomers] = useState<boolean>(false);
-  const [category6Value, setCategory6Value] = useState<number>(0);
-  const [category7Value, setCategory7Value] = useState<number>(0);
-  const [category8Value, setCategory8Value] = useState<number>(0);
-  const [category9Value, setCategory9Value] = useState<number>(0);
-  const [category10Value, setCategory10Value] = useState<number>(0);
-  const [saveButtonDisabled, setSaveButtonDisabled] = useState<boolean>(true);
-  const chartRef = useRef<HTMLCanvasElement | null>(null);
-  useEffect(() => {
-    const fetchAdminDetails = async () => {
-      try {
-        const response = await fetch("https://stg.dhunjam.in/account/admin/4");
-        const data: { status: number; response: string; data: AdminDetails } =
-          await response.json();
-
-        if (response.ok && data.status === 200) {
-          setAdminDetails(data.data);
-          setChargeCustomers(data.data.charge_customers);
-          setCategory6Value(data.data.amount.category_6);
-          setCategory7Value(data.data.amount.category_7);
-          setCategory8Value(data.data.amount.category_8);
-          setCategory9Value(data.data.amount.category_9);
-          setCategory10Value(data.data.amount.category_10);
-          checkSaveButtonStatus(data.data.charge_customers);
-        } else {
-          console.error(`Error: ${data.response}`);
-        }
-      } catch (error) {
-        console.error("Error fetching admin details:", error);
-      }
-    };
-
-    fetchAdminDetails();
-  }, []);
-
-  useEffect(() => {
-    const updateChart = () => {
-      if (chartRef.current) {
-        const ctx = chartRef.current.getContext("2d");
-        if (ctx) {
-          // Destroy the existing chart
-          Chart.getChart(chartRef.current)?.destroy();
-
-          const data = {
-            labels: [
-              "category_6",
-              "category_7",
-              "category_8",
-              "category_9",
-              "category_10",
-            ],
-            datasets: [
-              {
-                label: "Amount",
-                backgroundColor: "#F0C3F1",
-                borderColor: "#FFFFFF",
-                borderWidth: 1,
-                data: [
-                  category6Value,
-                  category7Value,
-                  category8Value,
-                  category9Value,
-                  category10Value,
-                ],
-              },
-            ],
-          };
-
-          const options = {
-            scales: {
-              y: {
-                beginAtZero: true,
-                title: {
-                  display: true,
-                  text: "₹",
-                  color: "#FFFFFF",
-                  size: 20,
-                },
-                ticks: {
-                  display: false,
-                },
-              },
-              x: {
-                ticks: {
-                  color: "#FFFFFF",
-                },
-              },
-            },
-            plugins: {
-              legend: {
-                display: false,
-              },
-            },
-            maintainAspectRatio: false,
-          };
-
-          new Chart(ctx, {
-            type: "bar",
-            data: data,
-            options: options,
-          });
-        }
-      }
-    };
-
-    updateChart();
-  }, [
+  const {
+    adminDetails,
+    chargeCustomers,
     category6Value,
     category7Value,
     category8Value,
     category9Value,
     category10Value,
-  ]);
-
-  const handleChargeCustomersChange = (value: boolean) => {
-    setChargeCustomers(value);
-    checkSaveButtonStatus(value);
-  };
-
-  const handleCategoryValueChange = (category: string, value: number) => {
-    switch (category) {
-      case "category_6":
-        setCategory6Value(value);
-        break;
-      case "category_7":
-        setCategory7Value(value);
-        break;
-      case "category_8":
-        setCategory8Value(value);
-        break;
-      case "category_9":
-        setCategory9Value(value);
-        break;
-      case "category_10":
-        setCategory10Value(value);
-        break;
-      default:
-        break;
-    }
-
-    checkSaveButtonStatus(chargeCustomers);
-  };
-
-  const checkSaveButtonStatus = (chargeCustomers: boolean) => {
-    const isSaveButtonDisabled = !chargeCustomers;
-    setSaveButtonDisabled(isSaveButtonDisabled);
-  };
-
-  const handleSaveButtonClick = async () => {
-    const response = await fetch("https://stg.dhunjam.in/account/admin/4", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        charge_customers: chargeCustomers,
-        amount: {
-          category_6: category6Value,
-          category_7: category7Value,
-          category_8: category8Value,
-          category_9: category9Value,
-          category_10: category10Value,
-        },
-      }),
-    });
-
-    const responseData = await response.json();
-
-    if (response.ok && responseData.status === 200) {
-      console.log("Update successful");
-    } else {
-      console.error(`Error: ${responseData.response}`);
-    }
-  };
+    saveButtonDisabled,
+    chartRef,
+    handleChargeCustomersChange,
+    handleCategoryValueChange,
+    handleSaveButtonClick,
+  } = useDashboardForm({
+    fetchData: fetchDashboardData,
+    updateData: updateDashboardData,
+  });
 
   return (
     <div className={styles.container}>
