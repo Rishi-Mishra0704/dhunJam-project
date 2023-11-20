@@ -92,3 +92,25 @@
   height: 30px;
   margin: 0 12px;
 }
+.save:disabled {
+  background-color: #c2c2c2;
+  cursor: not-allowed;
+}
+
+/* Greyed out text/input fields */
+.save:disabled,
+.form input:disabled,
+.customSong input:disabled,
+.categorySong input:disabled {
+  color: #c2c2c2;
+  border-color: #c2c2c2;
+}
+
+/* Add these styles to apply the above styles to disabled state */
+.save:disabled,
+.form input:disabled,
+.customSong input:disabled,
+.categorySong input:disabled {
+  background-color: #c2c2c2;
+  cursor: not-allowed;
+}

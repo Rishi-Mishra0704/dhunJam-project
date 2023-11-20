@@ -34,6 +34,14 @@ const useDashboardForm = ({ fetchData, updateData }: DashboardFormProps) => {
   const [saveButtonDisabled, setSaveButtonDisabled] = useState<boolean>(true);
   const chartRef = useRef<HTMLCanvasElement | null>(null);
 
+  const MINIMUM_VALUES = {
+    category_6: 99,
+    category_7: 79,
+    category_8: 59,
+    category_9: 39,
+    category_10: 19,
+  };
+
   useEffect(() => {
     const fetchDashboardData = async () => {
       try {
@@ -47,7 +55,7 @@ const useDashboardForm = ({ fetchData, updateData }: DashboardFormProps) => {
           setCategory8Value(data.amount.category_8);
           setCategory9Value(data.amount.category_9);
           setCategory10Value(data.amount.category_10);
-          checkSaveButtonStatus(data.charge_customers);
+          checkSaveButtonStatus();
         } else {
           console.error(`Error: ${response}`);
         }
@@ -136,36 +144,41 @@ const useDashboardForm = ({ fetchData, updateData }: DashboardFormProps) => {
     category9Value,
     category10Value,
   ]);
+  
+  useEffect(() => {
+    checkSaveButtonStatus();
+  }, [chargeCustomers, category6Value, category7Value, category8Value, category9Value, category10Value]);
+
   const handleChargeCustomersChange = (value: boolean) => {
     setChargeCustomers(value);
-    checkSaveButtonStatus(value);
+    setSaveButtonDisabled(false);
   };
+
   const handleCategoryValueChange = (category: string, value: number) => {
-    switch (category) {
-      case "category_6":
-        setCategory6Value(value);
-        break;
-      case "category_7":
-        setCategory7Value(value);
-        break;
-      case "category_8":
-        setCategory8Value(value);
-        break;
-      case "category_9":
-        setCategory9Value(value);
-        break;
-      case "category_10":
-        setCategory10Value(value);
-        break;
-      default:
-        break;
-    }
-
-    checkSaveButtonStatus(chargeCustomers);
+    const categoryStateKey = `set${category
+      .replace("_", "")
+      .replace(/^\w/, (c) => c.toUpperCase())}Value`;
+    const categoryStateSetter = eval(categoryStateKey);
+    categoryStateSetter(value);
   };
 
-  const checkSaveButtonStatus = (chargeCustomers: boolean) => {
-    const isSaveButtonDisabled = !chargeCustomers;
+  const checkSaveButtonStatus = () => {
+    const isSaveButtonDisabled =
+      !chargeCustomers ||
+      isNaN(category6Value) ||
+      category6Value < MINIMUM_VALUES.category_6 ||
+      isNaN(category7Value) ||
+      category7Value < MINIMUM_VALUES.category_7 ||
+      isNaN(category8Value) ||
+      category8Value < MINIMUM_VALUES.category_8 ||
+      isNaN(category9Value) ||
+      category9Value < MINIMUM_VALUES.category_9 ||
+      isNaN(category10Value) ||
+      category10Value < MINIMUM_VALUES.category_10;
+
+      console.log(category6Value, category7Value, category8Value, category9Value, category10Value);
+      
+
     setSaveButtonDisabled(isSaveButtonDisabled);
   };
 
@@ -183,10 +196,12 @@ const useDashboardForm = ({ fetchData, updateData }: DashboardFormProps) => {
 
     if (response.status === 200) {
       console.log("Update successful");
+      setSaveButtonDisabled(false);
     } else {
       console.error(`Error: ${response.response}`);
     }
   };
+
 
   return {
     adminDetails,
