@@ -85,13 +85,7 @@ const Dashboard: React.FC = () => {
 
   const checkSaveButtonStatus = (chargeCustomers: boolean) => {
     const isSaveButtonDisabled =
-      !chargeCustomers ||
-      (category6Value < 99) ||
-      (category7Value < 79) ||
-      (category8Value < 59) ||
-      (category9Value < 39) ||
-      (category10Value < 19);
-
+      !chargeCustomers;
     setSaveButtonDisabled(isSaveButtonDisabled);
   };
 
