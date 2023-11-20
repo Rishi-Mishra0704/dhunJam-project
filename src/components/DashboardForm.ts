@@ -69,18 +69,18 @@ const useDashboardForm = ({ fetchData, updateData }: DashboardFormProps) => {
 
           const data = {
             labels: [
-              "category_6",
-              "category_7",
-              "category_8",
-              "category_9",
-              "category_10",
+              "Custom",
+              "Category 1",
+              "Category 2",
+              "Category 3",
+              "Category 4",
             ],
             datasets: [
               {
                 label: "Amount",
                 backgroundColor: "#F0C3F1",
                 borderColor: "#FFFFFF",
-                borderWidth: 1,
+                borderWidth: 0.5,
                 data: [
                   category6Value,
                   category7Value,
@@ -100,7 +100,6 @@ const useDashboardForm = ({ fetchData, updateData }: DashboardFormProps) => {
                   display: true,
                   text: "₹",
                   color: "#FFFFFF",
-                  size: 20,
                 },
                 ticks: {
                   display: false,
@@ -117,7 +116,7 @@ const useDashboardForm = ({ fetchData, updateData }: DashboardFormProps) => {
                 display: false,
               },
             },
-            maintainAspectRatio: false,
+            maintainAspectRatio: true,
           };
 
           new Chart(ctx, {
