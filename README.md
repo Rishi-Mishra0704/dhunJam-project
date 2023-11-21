@@ -57,8 +57,8 @@
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
-## <h1>🚀Live Demo</h1><a name="Live-Demo" href = "/">Click Here</a>
-## <h1>🚀Video Guide</h1><a name="Live-Demo" href = "">Click here</a>
+## <h1>🚀Live Demo</h1><a name="Live-Demo" href = "https://dhun-jam-project.vercel.app/">Click Here</a>
+## <h1>🚀Video Guide</h1><a name="Live-Demo" href = "https://www.loom.com/share/574a004d767f4a00870d7e7036c0c357">Click here</a>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
