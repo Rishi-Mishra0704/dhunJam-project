@@ -114,6 +114,9 @@ const useDashboardForm = ({ fetchData, updateData }: DashboardFormProps) => {
                   display: true,
                   text: "₹",
                   color: "#FFFFFF",
+                  font: {
+                    size: 32, // Adjust the font size as needed
+                  },
                 },
                 ticks: {
                   display: false,
@@ -132,7 +135,6 @@ const useDashboardForm = ({ fetchData, updateData }: DashboardFormProps) => {
             },
             maintainAspectRatio: true,
           };
-
           new Chart(ctx, {
             type: "bar",
             data: data,
