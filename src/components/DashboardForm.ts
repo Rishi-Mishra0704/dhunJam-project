@@ -187,9 +187,8 @@ const useDashboardForm = ({ fetchData, updateData }: DashboardFormProps) => {
       console.error("Invalid data. Please check the values.");
       return;
     }
-  
-    const response = await updateData({
-      charge_customers: chargeCustomers,
+
+    const dataToUpdate = {
       amount: {
         category_6: category6Value,
         category_7: category7Value,
@@ -197,15 +196,24 @@ const useDashboardForm = ({ fetchData, updateData }: DashboardFormProps) => {
         category_9: category9Value,
         category_10: category10Value,
       },
-    });
-  
-    if (response.status === 200) {
-      console.log("Update successful");
-    } else {
-      console.error(`Error: ${response.response}`);
+    };
+
+    console.log("Data to update:", dataToUpdate);
+
+    try {
+      const response = await updateData(dataToUpdate);
+
+      if (response.status === 200) {
+        console.log("Update successful");
+        // Refresh the data after successful update
+        fetchData();
+      } else {
+        console.error(`Error: ${response.response}`);
+      }
+    } catch (error) {
+      console.error("Error updating data:", error);
     }
   };
-  
 
 
   return {
