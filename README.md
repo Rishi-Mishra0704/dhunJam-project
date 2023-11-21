@@ -92,6 +92,10 @@ Install this project with:
 cd 'project name'
 
 "npm i" to install all dependencies
+
+### Dev server
+Open the terminal 
+"npm run dev" to start the development server
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 ## 👥 Authors <a name="authors"></a>
