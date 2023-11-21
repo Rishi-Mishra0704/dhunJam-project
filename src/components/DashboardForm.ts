@@ -43,11 +43,13 @@ const useDashboardForm = ({ fetchData, updateData }: DashboardFormProps) => {
   };
 
   useEffect(() => {
+    let isMounted = true;
+  
     const fetchDashboardData = async () => {
       try {
         const { status, response, data } = await fetchData();
-
-        if (status === 200) {
+  
+        if (isMounted && status === 200) {
           setAdminDetails(data);
           setChargeCustomers(data.charge_customers);
           setCategory6Value(data.amount.category_6);
@@ -63,10 +65,14 @@ const useDashboardForm = ({ fetchData, updateData }: DashboardFormProps) => {
         console.error("Error fetching admin details:", error);
       }
     };
-
+  
     fetchDashboardData();
+  
+    return () => {
+      isMounted = false;
+    };
   }, [fetchData]);
-
+  
   useEffect(() => {
     const updateChart = () => {
       if (chartRef.current) {

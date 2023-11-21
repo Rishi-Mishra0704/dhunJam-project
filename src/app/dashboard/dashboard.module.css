@@ -113,4 +113,5 @@
 .categorySong input:disabled {
   background-color: #c2c2c2;
   cursor: not-allowed;
+  color: #000;
 }
