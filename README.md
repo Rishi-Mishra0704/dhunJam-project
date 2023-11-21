@@ -124,6 +124,6 @@ Please give a ⭐️ if you like this project
 
 ## 🙏 Acknowledgments <a name="acknowledgements"></a>
 
-I would like to thank everyone contributed the completion of this project
+I would like to thank Dhun Jam for providing me the opportunity to work on an amazing project like this
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
