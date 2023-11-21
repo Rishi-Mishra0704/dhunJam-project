@@ -1,36 +1,125 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<a name="readme-top"></a>
 
-## Getting Started
+<div align="center">
 
-First, run the development server:
+  <h3><b>Dhun Jam</b></h3>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+</div>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<!-- TABLE OF CONTENTS -->
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+# 📗 Table of Contents
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- [📖 About the Project](#about-project)
+  - [🛠 Built With](#built-with)
+    - [Tech Stack](#tech-stack)
+    - [Key Features](#key-features)
+  - [🚀 Live Demo](#live-demo)
+- [💻 Getting Started](#getting-started)
+  - [Setup](#setup)
+  - [Prerequisites](#prerequisites)
+  - [Install](#install)
+  - [Run tests](#run-tests)
+- [👥 Authors](#authors)
+- [🔭 Future Features](#future-features)
+- [🤝 Contributing](#contributing)
+- [⭐️ Show your support](#support)
+- [🙏 Acknowledgements](#acknowledgements)
+- [📝 License](#license)
 
-## Learn More
+# 📖 [Dhun_Jam] <a name="about-project"></a>
 
-To learn more about Next.js, take a look at the following resources:
+> DhunJam is a music app that allows users to listen to music. It is built with Next.js, Typescript, React.js and Chart.js.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**[Dhun_Jam]**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 🛠 Built With <a name="built-with"></a>
 
-## Deploy on Vercel
+### Tech Stack <a name="tech-stack"></a>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+<details>
+<summary>Client</summary>
+<ul>
+<li>Next.js</li>
+<li>Typescript</li>
+<li>React.js</li>
+<li>Chart.js</li>   
+ </ul>
+</details>
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### Key Features <a name="key-features"></a>
+
+<ul>
+<li>Easy routing with Nextjs App-router</li>
+<li>Reliable Code with TypeScript</li>
+<li>Optimized Styles wih CSS modules</li>
+</ul>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## <h1>🚀Live Demo</h1><a name="Live-Demo" href = "/">Click Here</a>
+## <h1>🚀Video Guide</h1><a name="Live-Demo" href = "">Click here</a>
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 💻 Getting Started <a name="getting-started"></a>
+
+To get a local copy up and running, follow these steps.
+Coming soon.
+
+### Prerequisites
+
+In order to run this project you need:
+
+<ul>
+<li>node </li>
+<li>internet</li>
+</ul>
+
+### Setup
+
+Clone this repository to your desired folder:
+Use Terminal:
+
+cd my-folder
+
+git clone https://github.com/Rishi-Mishra0704/dhunJam-project
+
+### Install
+
+Install this project with:
+
+cd 'project name'
+
+"npm i" to install all dependencies
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 👥 Authors <a name="authors"></a>
+
+👤 \*\*Rishi Mishra\*\*
+
+- GitHub: [Rishi Mishra](https://github.com/Rishi-Mishra0704)
+- Twitter: [Rishi Mishra](https://twitter.com/RishiMi31357764)
+- LinkedIn: [Rishi Mishra](https://www.linkedin.com/in/rrmishra/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 🤝 Contributing <a name="contributing"></a>
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page](../../issues/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## ⭐️ Show your support <a name="support"></a>
+
+Please give a ⭐️ if you like this project
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+## 🙏 Acknowledgments <a name="acknowledgements"></a>
+
+I would like to thank everyone contributed the completion of this project
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
